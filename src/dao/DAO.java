@@ -5,9 +5,11 @@ import java.sql.*;
 public class DAO {
 
 	public void testConnection() {
+		
 		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
 		String username = "root";
 		String password = "funkler";
+		
 		try {
 			Connection conn = DriverManager.getConnection(dbURL, username, password);
 			if (conn != null) {
@@ -50,7 +52,7 @@ public class DAO {
 
 	public void consult() {
 
-		String sql = "SELECT * FROM CUSTOMERS";
+		String sql = "SELECT * FROM CUSTOMER";
 
 		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
 		String username = "root";
@@ -66,72 +68,69 @@ public class DAO {
 
 			while (result.next()) {
 				String name = result.getString(2);
-				String pass = result.getString(3);
-				String fullname = result.getString("fullname");
-				String email = result.getString("email");
+				Date dob = result.getDate(3);
+				String membershipcard = result.getString(4);
+				String card = result.getString(5);
+				String email = result.getString(6);
 
-				String output = "User #%d: %s - %s - %s - %s";
-				System.out.println(String.format(output, ++count, name, pass, fullname, email));
+				String output = "User #%d: %s - %s - %s - %s - %s";
+				System.out.println(String.format(output, ++count, name, dob, membershipcard, card, email));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(sql);
 
-		int count = 0;
+	}
 
-		while (result.next()) {
-			String name = result.getString(2);
-			String pass = result.getString(3);
-			String fullname = result.getString("fullname");
-			String email = result.getString("email");
+	public void update() {
 
-			String output = "User #%d: %s - %s - %s - %s";
-			System.out.println(String.format(output, ++count, name, pass, fullname, email));
+		String sql = "UPDATE Users SET name=?, dob=?, membershipcard=?, card=?, email=? WHERE name=?";
+
+		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+		String username = "root";
+		String password = "funkler";
+
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(dbURL, username, password);
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, "Oswaldo");
+			statement.setString(2, "1980/06/02");
+			statement.setString(3, "123456B");
+			statement.setString(4, "123456");
+			statement.setString(4, "oswaldo@gmail.com");
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				System.out.println("An existing user was updated successfully!");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(sql);
+	}
 
-		int count = 0;
+	public void delete() {
+		String sql = "DELETE FROM Users WHERE name=?";
 
-		while (result.next()) {
-			String name = result.getString(2);
-			String pass = result.getString(3);
-			String fullname = result.getString("fullname");
-			String email = result.getString("email");
+		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+		String username = "root";
+		String password = "funkler";
+		
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(dbURL, username, password);
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, "bill");
 
-			String output = "User #%d: %s - %s - %s - %s";
-			System.out.println(String.format(output, ++count, name, pass, fullname, email));
-		}
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(sql);
-
-		int count = 0;
-
-		while (result.next()) {
-			String name = result.getString(2);
-			String pass = result.getString(3);
-			String fullname = result.getString("fullname");
-			String email = result.getString("email");
-
-			String output = "User #%d: %s - %s - %s - %s";
-			System.out.println(String.format(output, ++count, name, pass, fullname, email));
-		}
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(sql);
-
-		int count = 0;
-
-		while (result.next()) {
-			String name = result.getString(2);
-			String pass = result.getString(3);
-			String fullname = result.getString("fullname");
-			String email = result.getString("email");
-
-			String output = "User #%d: %s - %s - %s - %s";
-			System.out.println(String.format(output, ++count, name, pass, fullname, email));
+			int rowsDeleted = statement.executeUpdate();
+			if (rowsDeleted > 0) {
+				System.out.println("A user was deleted successfully!");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

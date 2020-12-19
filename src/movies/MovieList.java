@@ -4,37 +4,38 @@ import java.util.*;
 
 public class MovieList {
 
-	public String movieList() {
+    //This method was designed only to hold movies in an ArrayList and return it as a list sorted in Alphabetical order
+    public List<String> MovieList() {
 
-		List<String> animated = new ArrayList<>();
-		animated.add("Robot Chicken");
-		animated.add("Family Guy");
-		animated.add("American Dad");
-		animated.add("Bob's Burgers");
-		animated.add("The Simpsons");
+        List<String> movies = new ArrayList<>();
+        movies.add("Robot Chicken");
+        movies.add("Family Guy");
+        movies.add("American Dad");
+        movies.add("Bob's Burgers");
+        movies.add("The Simpsons");
 
-		List<String> drama = new ArrayList<>();
-		drama.add("John Q");
-		drama.add("The Green Mile");
-		drama.add("The Breakfast Club");
-		drama.add("The Shawshank Redemption");
-		drama.add("Braveheart");
+        movies.add("John Q");
+        movies.add("The Green Mile");
+        movies.add("The Breakfast Club");
+        movies.add("The Shawshank Redemption");
+        movies.add("Braveheart");
 
-		List<String> horror = new ArrayList<>();
-		horror.add("Scream");
-		horror.add("Carrie");
-		horror.add("Insideous");
-		horror.add("Insideous 2");
-		horror.add("Sinister");
+        movies.add("Scream");
+        movies.add("Carrie");
+        movies.add("Insideous");
+        movies.add("Insideous 2");
+        movies.add("Sinister");
 
-		List<String> scifi = new ArrayList<>();
-		scifi.add("The Book of Eli");
-		scifi.add("Daybreakers");
-		scifi.add("Hunter Prey");
-		scifi.add("Predators");
-		scifi.add("Skyline");
+        movies.add("The Book of Eli");
+        movies.add("Daybreakers");
+        movies.add("Hunter Prey");
+        movies.add("Predators");
+        movies.add("Skyline");
 
-		return null;
-	}
+        //Sorts the array in alphabetical order
+        Collections.sort(movies);
+
+        return movies;
+    }
 
 }

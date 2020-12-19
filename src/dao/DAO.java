@@ -2,135 +2,152 @@ package dao;
 
 import java.sql.*;
 
+//DAO stands for Data Access Object and this class was designed to serve as a bridge between Java code and a SQL database.
 public class DAO {
 
-	public void testConnection() {
-		
-		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
-		String username = "root";
-		String password = "funkler";
-		
-		try {
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
-			if (conn != null) {
-				System.out.println("Connected Successfully!");
-				conn.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    //This method is only used to test if the connection to the database is possible and valid. Nothing else...
+    public void testConnection() {
 
-	public void insert() {
+        //Parameters being passed to the MySQL driver
+        String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+        String username = "root";
+        String password = "root@root";
 
-		String sql = "INSERT INTO CUSTOMER (name, dob, membershipcard, card, email) VALUES (?, ?, ?, ?, ?)";
+        //MySQL's driver receives the parameters and tries to connect to the database
+        try {
+            Connection conn = DriverManager.getConnection(dbURL, username, password);
+            if (conn != null) {
+                System.out.println("Connected Successfully!");
+                conn.close();
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
-		String username = "root";
-		String password = "funkler";
+    //This method's purpose is to insert data into the database and so far it doesn't interact with the user. Work in progress...
+    public void insert() {
 
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection(dbURL, username, password);
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, "Logan");
-			statement.setDate(2, java.sql.Date.valueOf("1990-09-04"));
-			statement.setString(3, "123456A");
-			statement.setString(4, "123456789");
-			statement.setString(5, "logan@gmail.com");
+        //Parameters being passed to the MySQL driver
+        String sql = "INSERT INTO CUSTOMER (name, dob, membershipcard, card, email) VALUES (?, ?, ?, ?, ?)";
+        String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+        String username = "root";
+        String password = "root@root";
 
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("A new user was inserted successfully!");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        //MySQL's driver receives the parameters and tries to connect to the database
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection(dbURL, username, password);
+            //Statements are introducing data to the database if connection successful
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(2, "Logan");
+            statement.setDate(3, java.sql.Date.valueOf("1990-09-04"));
+            statement.setString(4, "123456A");
+            statement.setString(5, "123456789");
+            statement.setString(6, "logan@gmail.com");
 
-	public void consult() {
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new user was inserted successfully!");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-		String sql = "SELECT * FROM CUSTOMER";
+    //This method's purpose is to read data into the database and so far it doesn't interact with the user. Work in progress...
+    public void consult() {
 
-		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
-		String username = "root";
-		String password = "funkler";
+        //Parameters being passed to the MySQL driver
+        String sql = "SELECT * FROM CUSTOMER";
+        String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+        String username = "root";
+        String password = "root@root";
 
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection(dbURL, username, password);
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+        //MySQL's driver receives the parameters and tries to connect to the database
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection(dbURL, username, password);
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(sql);
 
-			int count = 0;
+            int count = 0;
 
-			while (result.next()) {
-				String name = result.getString(2);
-				Date dob = result.getDate(3);
-				String membershipcard = result.getString(4);
-				String card = result.getString(5);
-				String email = result.getString(6);
+            //Statement will fetch data from the database if connection successful
+            while (result.next()) {
+                String name = result.getString(2);
+                Date dob = result.getDate(3);
+                String membershipcard = result.getString(4);
+                String card = result.getString(5);
+                String email = result.getString(6);
 
-				String output = "User #%d: %s - %s - %s - %s - %s";
-				System.out.println(String.format(output, ++count, name, dob, membershipcard, card, email));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                String output = "User #%d: %s - %s - %s - %s - %s";
+                System.out.println(String.format(output, ++count, name, dob, membershipcard, card, email));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public void update() {
+    //This method's purpose is to change data into the database and so far it doesn't interact with the user. Work in progress...
+    public void update() {
 
-		String sql = "UPDATE Users SET name=?, dob=?, membershipcard=?, card=?, email=? WHERE name=?";
+        //Parameters being passed to the MySQL driver
+        String sql = "UPDATE Users SET name=?, dob=?, membershipcard=?, card=?, email=? WHERE name=?";
+        String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+        String username = "root";
+        String password = "root@root";
 
-		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
-		String username = "root";
-		String password = "funkler";
+        //MySQL's driver receives the parameters and tries to connect to the database
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection(dbURL, username, password);
+            //Statements are modifying data on the database if connection successful
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(2, "Oswaldo");
+            statement.setString(3, "1980/06/02");
+            statement.setString(4, "123456B");
+            statement.setString(5, "123456");
+            statement.setString(6, "oswaldo@gmail.com");
 
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection(dbURL, username, password);
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, "Oswaldo");
-			statement.setString(2, "1980/06/02");
-			statement.setString(3, "123456B");
-			statement.setString(4, "123456");
-			statement.setString(4, "oswaldo@gmail.com");
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-			int rowsUpdated = statement.executeUpdate();
-			if (rowsUpdated > 0) {
-				System.out.println("An existing user was updated successfully!");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    //This method's purpose is to delete data into the database and so far it doesn't interact with the user. Work in progress...
+    public void delete() {
 
-	public void delete() {
-		String sql = "DELETE FROM Users WHERE name=?";
+        //Parameters being passed to the MySQL driver
+        String sql = "DELETE FROM Users WHERE name=?";
+        String dbURL = "jdbc:mysql://localhost:3306/cineplex";
+        String username = "root";
+        String password = "root@root";
 
-		String dbURL = "jdbc:mysql://localhost:3306/cineplex";
-		String username = "root";
-		String password = "funkler";
-		
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection(dbURL, username, password);
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, "bill");
+        //MySQL's driver receives the parameters and tries to connect to the database
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection(dbURL, username, password);
+            //Statement will delete data from the database if connection successful
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, "");
 
-			int rowsDeleted = statement.executeUpdate();
-			if (rowsDeleted > 0) {
-				System.out.println("A user was deleted successfully!");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("A user was deleted successfully!");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
